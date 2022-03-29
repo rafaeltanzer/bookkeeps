@@ -11,5 +11,4 @@ const UserSchema = new mongoose.Schema<User>({
     pswd: {type: String, required: true}
 });
 
-const UserModel = model<User>("User", UserSchema);
-export default UserModel;
+export const UserModel = model<User>("User", UserSchema);

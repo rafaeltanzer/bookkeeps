@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Schema, model} from 'mongoose';
 
-interface Transaction{
+export interface Transaction{
     title: String,
     amount: Number,
     category: String,
@@ -17,5 +17,4 @@ const TransactionSchema = new mongoose.Schema<Transaction>({
     account_name: {type: String, required: true}
 });
 
-const TransactionModel = model<Transaction>('Transaction', TransactionSchema);
-export default TransactionModel;
+export const TransactionModel = model<Transaction>('Transaction', TransactionSchema);

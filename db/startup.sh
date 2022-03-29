@@ -1,1 +1,1 @@
-docker run -d -p 2717:27017 -v C:/Users/rafae/Desktop/Code/Bookkeeps/db/data:/data/db --name bkmongo mongo:5.0.6
+docker run -d -p 2717:27017 -v C:/Users/rafae/Desktop/Code/bookeeps/data:/data/db --name bkmongo mongo:5.0.6
