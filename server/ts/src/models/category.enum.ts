@@ -5,3 +5,5 @@ export enum Category{
     Food,
     Friends
 }
+
+export let CategoryList : string[] = Object.values(Category).filter(val => typeof val === 'string') as string[];

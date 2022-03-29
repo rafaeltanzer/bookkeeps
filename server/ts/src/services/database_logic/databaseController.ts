@@ -1,4 +1,4 @@
-import * as db from '../models/allModels';
+import * as db from '../../models/allModels';
 
 export let setUser = async (user: db.User): Promise<any> =>{
     try {
