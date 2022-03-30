@@ -1,6 +1,7 @@
-import * as db from '../../models/allModels';
+import * as models from '../../models/allModels';
+import * as db from './databaseMiddleware';
 
-export let setUser = async (user: db.User): Promise<any> =>{
+export let setUser = async (user: models.User): Promise<any> =>{
     try {
         return await db.UserModel.create(user);
     } catch (error) {
@@ -9,7 +10,7 @@ export let setUser = async (user: db.User): Promise<any> =>{
         return Promise.resolve(null);
     }
 }
-export let getUser = async (user: db.User): Promise<db.User|null> => {
+export let getUser = async (user: models.User): Promise<models.User|null> => {
     try{
         //https://mongoosejs.com/docs/tutorials/lean.html
         return await db.UserModel.findOne(user).lean().exec();
@@ -20,7 +21,7 @@ export let getUser = async (user: db.User): Promise<db.User|null> => {
     }
 }
 
-export let setAccount = async (account: db.Account): Promise<any> => {
+export let setAccount = async (account: models.Account): Promise<any> => {
     try {
         return await db.AccountModel.create(account);
     } catch (error) {
@@ -28,7 +29,7 @@ export let setAccount = async (account: db.Account): Promise<any> => {
         return Promise.resolve(null);
     }
 }
-export let getAccounts = async (): Promise<db.Account[]|null> => {
+export let getAccounts = async (): Promise<models.Account[]|null> => {
     try {
         return await db.AccountModel.find({}).lean().exec();
     } catch (error) {
@@ -36,7 +37,7 @@ export let getAccounts = async (): Promise<db.Account[]|null> => {
         return Promise.resolve(null);
     }
 }
-export let findAccount = async(name: string): Promise<db.Account|null> => {
+export let findAccount = async(name: string): Promise<models.Account|null> => {
     //https://stackoverflow.com/questions/45172700/what-does-mongoose-return-when-a-find-query-is-empty
     try {
         return await db.AccountModel.findOne({name: name}).exec();

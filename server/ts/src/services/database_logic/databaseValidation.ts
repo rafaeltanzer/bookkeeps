@@ -3,4 +3,8 @@ export const EmailRegEx = /(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\
 
 export let minExcludeZero = (num: number): boolean => {
     return num > 0;
+};
+
+export let matchingActualAmount = async (income:number, outgoing:number, actual:number): Promise<boolean> => {
+    return Promise.resolve((income-outgoing)==actual);
 }

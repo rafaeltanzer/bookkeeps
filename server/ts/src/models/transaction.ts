@@ -5,15 +5,15 @@ import { CategoryList } from './category.enum';
 
 export interface Transaction {
     _id: mongoose.Types.ObjectId,
-    title: String,
-    amount: Number,
-    category: String,
+    title: string,
+    amount: number,
+    category: string,
     date: Date,
-    account_name: String,
+    account_name: string,
     outgoing: boolean,
 }
 
-const TransactionSchema = new mongoose.Schema<Transaction>({
+export const TransactionSchema = new mongoose.Schema<Transaction>({
     _id: {type: Schema.Types.ObjectId},
     title: { type: String, required: true },
     amount: { type: Number, required: true, validate: [minExcludeZero, 'Has to be greater than 0!']},
@@ -22,5 +22,3 @@ const TransactionSchema = new mongoose.Schema<Transaction>({
     account_name: { type: String, required: true, unique: true, toLowerCase: true },
     outgoing: {type: Boolean}
 });
-
-export const TransactionModel = model<Transaction>('Transaction', TransactionSchema);
