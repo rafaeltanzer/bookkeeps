@@ -3,6 +3,7 @@ import * as argon2 from 'argon2';
 import {model, Error} from 'mongoose';
 import { matchingActualAmount } from './databaseValidation';
 import mongoose from 'mongoose';
+//create() fires save() hook!
 
 //#region User-Hooks
 models.UserSchema.pre('save', async function(){
