@@ -1,19 +1,21 @@
 import mongoose from 'mongoose';
 import { Schema, model} from 'mongoose';
+import { EmailRegEx } from '../services/database_logic/databaseValidation';
 
-interface Account{
+export interface Account{
     name: string,
-    income: number,
-    outgoing: number,
+    title: string,
+    incomingAmount: number,
+    outgoingAmount: number,
     actualAmount: number,
+    userMail: string,
 }
 
-const AccountSchema = new mongoose.Schema<Account>({
-    name: {type: String, required: true, unique: true},
-    income:{ type: Number},
-    outgoing: {type: Number},
-    actualAmount: {type: Number}
+export const AccountSchema = new mongoose.Schema<Account>({
+    name: {type: String, required: true, unique: true, toLowerCase: true},//title+email
+    title: {type: String, required: true, unique: true, minlength: [2, 'Title must be at least 2 letters!']},
+    incomingAmount:{ type: Number, min: 0},
+    outgoingAmount: {type: Number, min: 0},
+    actualAmount: {type: Number},
+    userMail: {type: String, required: true, match: [EmailRegEx, 'User email not correct!']},
 });
-
-const AccountModel = model<Account>('Account', AccountSchema);
-export default AccountModel;
