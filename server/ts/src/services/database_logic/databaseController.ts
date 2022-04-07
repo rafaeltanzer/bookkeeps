@@ -1,5 +1,3 @@
-import * as models from '../../models/allModels';
-import * as db from './databaseMiddleware';
 import {model} from 'mongoose';
 import mongoose from 'mongoose';
 
@@ -9,7 +7,7 @@ import mongoose from 'mongoose';
  * modelSchema represents the underlying schema of the model and modelName is the name of the model.
  * Sadly due to not yet existing Gneric type reflection.
  */
-class BaseModelController<T>{
+export class BaseModelController<T>{
     //controler with generic input of the Schema or Model itself
     //allows the use of one controller class with all the functionality inside
     //the methods practically stay the same, only the filter has to be given via a parameter of the method

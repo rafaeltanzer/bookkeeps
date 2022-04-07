@@ -9,7 +9,7 @@ export interface Transaction {
     amount: number,
     category: string,
     date: Date,
-    account_name: string,
+    accountName: string,
     outgoing: boolean,
 }
 
@@ -19,6 +19,6 @@ export const TransactionSchema = new mongoose.Schema<Transaction>({
     amount: { type: Number, required: true, validate: [minExcludeZero, 'Has to be greater than 0!']},
     category: { type: String, enum: { values: CategoryList, message: '{VALUE} is not found in the list.' } },
     date: { type: Date },
-    account_name: { type: String, required: true, unique: true, toLowerCase: true },
+    accountName: { type: String, required: true, unique: true, toLowerCase: true },
     outgoing: {type: Boolean}
 });
