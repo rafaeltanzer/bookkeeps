@@ -1,9 +1,23 @@
-import express from "express";
+import express, { Express, Request, Response } from 'express';
+import * as dotenv from 'dotenv';
+import path from 'path';
 
-const app = express();
+const result = dotenv.config({path: '../assets/.env'});
 
-const PORT = process.env.PORT || 4000;
 
-app.get("/", (req, res) => res.send("Hello from server!"));
+if (result.error) {
+    throw result.error
+  }
+  
+  console.log(result.parsed)
 
-app.listen(PORT, () => console.log(`⚡Server is running here 👉 https://localhost:${PORT}`));
+const app: Express = express();
+const port = process.env.EXPRESS_PORT;
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Express + TypeScript Server');
+});
+
+app.listen(port, () => {
+  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+});
