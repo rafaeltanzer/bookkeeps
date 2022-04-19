@@ -22,7 +22,7 @@ export class MongoConnector{
     }
 }
 
-export function generateCustomError(error: Error): DatabaseRecordError | null{
+export function generateCustomError(error: any): DatabaseRecordError | null{
 
     if(error instanceof mongoose.MongooseError){                
         if(error.name === 'ValidationError'){// MAybe extend with cast error
@@ -43,14 +43,14 @@ export function generateCustomError(error: Error): DatabaseRecordError | null{
         }
         return new DatabaseRecordError("An unspecified mongoose error has occured.");
     }else if(error instanceof MongoServerError){
-        if(error.code === 11000){
+        if(error.code && error.code === 11000){
             var probDupErr = error as any;
-            var field = Object.keys(probDupErr.keyValue)[0];// maybe extend to array
+            var dupField = Object.keys(probDupErr.keyValue)[0];// maybe extend to array
             var recordError = new DatabaseRecordError("A duplivate key error has been raised!");
-            fieldErr = new DatabaseFieldError("Duplicate Key Error. Field already exists.", {field: field, value: 0, message: "Already existing value"});
+            fieldErr = new DatabaseFieldError("Duplicate Key Error. Field already exists.", {field: dupField, value: 0, message: "Already existing value"});
         }
-        return new DatabaseRecordError("An unspecified database error occured");
+        return new DatabaseRecordError("An unspecified database error occured!");
     }else{
-        return null;
+        return new DatabaseRecordError(error.toString());
     }
 }

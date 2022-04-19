@@ -1,5 +1,6 @@
 import {model} from 'mongoose';
 import mongoose from 'mongoose';
+import {generateCustomError} from './databaseUtil';
 
 /**
  * Database controller class for any possible MongoDB-Model Interface.
@@ -38,35 +39,35 @@ export class BaseModelController<T>{
             //callback alt. await UserModel.findOne(user, (err, user) => {})
         }catch(error){
             console.log(error);
-            throw error;
+            throw generateCustomError(error);
         }
     }
     findDocs = async (filter: any): Promise<T[]|null> => {
         try {
             return await this.databaseModel.find(filter).exec();
         } catch (error) {
-            throw error;
+            throw generateCustomError(error);
         }
     }
     deleteOneDoc = async (filter: any) => {
         try {
             await this.databaseModel.deleteOne(filter).exec();
         } catch (error) {
-            throw error;
+            throw generateCustomError(error);
         }
     }
     deleteDocs = async (filter: any) => {
         try {
             await this.databaseModel.remove(filter).exec();
         } catch (error) {
-            throw error;
+            throw generateCustomError(error);
         }
     }
     updateDoc = async (filter: any, update: T): Promise<T|null> => {
         try {
             return await this.databaseModel.findOneAndUpdate(filter, update, {new: true}).exec();
         } catch (error) {
-            throw error;
+            throw generateCustomError(error);
         }
     }
 }

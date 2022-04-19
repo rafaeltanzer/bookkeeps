@@ -25,7 +25,7 @@ models.UserSchema.post('deleteOne', async function(){
 
 //#region Account-Hooks
 models.AccountSchema.pre(['save', 'updateOne'], {document: true, query: false}, async function(){
-    console.log("Pre Save,Update Account middleware..."+ this + "Type = " + typeof this);
+    console.log("Pre Save, Update Account middleware..."+ this + "Type = " + typeof this);
 
     if(!(await matchingActualAmount(this.incomingAmount, this.outgoingAmount, this.actualAmount)))
     {
