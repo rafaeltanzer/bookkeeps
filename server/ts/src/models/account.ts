@@ -8,7 +8,7 @@ export interface Account{
     incomingAmount: number,
     outgoingAmount: number,
     actualAmount: number,
-    userMail: string,
+    userEmail: string,
 }
 
 export const AccountSchema = new mongoose.Schema<Account>({
@@ -17,5 +17,5 @@ export const AccountSchema = new mongoose.Schema<Account>({
     incomingAmount:{ type: Number, min: 0},
     outgoingAmount: {type: Number, min: 0},
     actualAmount: {type: Number},
-    userMail: {type: String, required: true, match: [EmailRegEx, 'User email not correct!']},
+    userEmail: {type: String, required: true, match: [EmailRegEx, 'User email not correct!']},
 });

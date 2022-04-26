@@ -1,6 +1,7 @@
 import {model} from 'mongoose';
 import mongoose from 'mongoose';
 import {generateCustomError} from './databaseUtil';
+import IBaseRepository from '../api/repositories/baseRepository';
 
 /**
  * Database controller class for any possible MongoDB-Model Interface.
@@ -8,7 +9,7 @@ import {generateCustomError} from './databaseUtil';
  * modelSchema represents the underlying schema of the model and modelName is the name of the model.
  * Sadly due to not yet existing Gneric type reflection.
  */
-export class BaseModelController<T>{
+export class BaseRepository<T> implements IBaseRepository<T>{
     //controler with generic input of the Schema or Model itself
     //allows the use of one controller class with all the functionality inside
     //the methods practically stay the same, only the filter has to be given via a parameter of the method
@@ -24,7 +25,7 @@ export class BaseModelController<T>{
 
     private databaseModel: mongoose.Model<T>;
 
-    setNewDoc = async(doc: T): Promise<T> => { //change any to specific type: look up what create returns
+    createNewDoc = async(doc: T): Promise<T> => { //change any to specific type: look up what create returns
         try {
             return await this.databaseModel.create(doc);
         } catch (error) {
