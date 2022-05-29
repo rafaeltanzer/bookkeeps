@@ -1,8 +1,8 @@
 import * as models from '../../models/allModels';
 import * as argon2 from 'argon2';
-import { matchingActualAmount } from './databaseValidation';
+import { matchingActualAmount, matchingMergedStrings } from './databaseValidation';
 import mongoose from 'mongoose';
-import { BaseRepository } from './databaseRepository';
+import { BaseRepository } from '../persistance/repositories/baseRepository';
 //create() fires save() hook!
 
 //#region User-Hooks
@@ -27,12 +27,19 @@ models.UserSchema.post('deleteOne', async function(){
 models.AccountSchema.pre(['save', 'updateOne'], {document: true, query: false}, async function(){
     console.log("Pre Save, Update Account middleware..."+ this + "Type = " + typeof this);
 
-    if(!(await matchingActualAmount(this.incomingAmount, this.outgoingAmount, this.actualAmount)))
+    if(!(matchingActualAmount(this.incomingAmount, this.outgoingAmount, this.actualAmount)))
     {
         throw new mongoose.Error.ValidatorError({
             message: 'Actual amount does not match with ongoing transactive amounts!',
             path: 'actualAamount',
             value: this.actualAmount
+        });
+    }
+    if(matchingMergedStrings(this.title+"_", this.userEmail, this.name)){
+        throw new mongoose.Error.ValidatorError({
+            message: 'Name(key) does not obey the rules!(<title>_<email>)',
+            path: 'name',
+            value: this.name
         });
     }
 });

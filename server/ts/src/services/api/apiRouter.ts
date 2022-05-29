@@ -1,6 +1,7 @@
 import express, { request, Request, Response } from 'express';
 import {Account} from '../../models/allModels';
 import { CError } from '../../utils/cError';
+import { accountRouter } from './router/accountRouter';
 
 type AccountParam = {email: string; name: string};
 
@@ -32,31 +33,6 @@ apiRouter.post('user/signup', (req: Request, res: Response) => {
         throw new CError("Body cannot be empty!");
     }
 });
-
-//#region AccountRoutes
-apiRouter.route('/account')
-    .get((req: Request, res: Response) => {
-        res.send(req.body)
-    })
-    .post((req: Request<{},{},Account>, res: Response) => {
-        if(Object.keys(req.body).length <= 0)
-            throw new CError("Body cannot be empty!");
-
-        res.send(req.body.userEmail);
-    })
-    .put((req: Request<{},{},Account, AccountParam>, res: Response) => {
-        if(Object.keys(req.body).length <= 0)
-            throw new CError("Body cannot be empty!");
-        res.send(req.body);
-    })
-    .delete((req: Request<{},{},{}, AccountParam>, res: Response) => {
-        res.send(req.query.email + req.query.name);
-    });
-
-    apiRouter.get('/accounts-with-transaction', (req: Request<{},{},{},{email: string}>, res: Response) => {
-        
-    });
-//#endregion
 
 apiRouter.route('/transaction')
     .get((req: Request, res: Response) => {

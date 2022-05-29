@@ -5,6 +5,10 @@ export let minExcludeZero = (num: number): boolean => {
     return num > 0;
 };
 
-export let matchingActualAmount = async (income:number, outgoing:number, actual:number): Promise<boolean> => {
-    return Promise.resolve((income-outgoing)==actual);
+export let matchingActualAmount = (income:number, outgoing:number, actual:number): boolean => {
+    return (income-outgoing)==actual;
+}
+
+export let matchingMergedStrings = (first:string, second: string, merged: string): boolean => {
+    return first+second == merged;
 }
